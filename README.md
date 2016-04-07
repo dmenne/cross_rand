@@ -1,8 +1,8 @@
-# Randomization of Crossover designs
+# Randomization of crossover designs
 
 dieter.menne@menne-biomed.de
 
-GUI for simple balanced and unbalanced crossover design. Uses R-package `CrossOver` by  Kornelius Rohmeyer and Shiny.
+GUI to create a randomization table for a balanced or unbalanced crossover design. Uses R-package `CrossOver` by  Kornelius Rohmeyer and Shiny by RStudio.
 
 ## Example of call used internally:
 
