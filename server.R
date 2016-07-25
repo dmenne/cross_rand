@@ -1,19 +1,18 @@
 library(Crossover)
 library(stringr)
 
-searchCrossOverDesign1 = function(s, p, v, v.rep = NULL){
-  model = "Self-adjacency model"
-  eff.factor = c(1, 0,0)
+searchCrossOverDesign1 = function(s, p, v, v.rep = NULL, model){
+  # eff-factor is badly documented. Just trial/error
+  model_i = max(models[model],1)
+  eff.factor = c(1, rep(0, model_i-1))
   contrast = "Tukey"
   n = c(3000,20)
   if (is.null(v.rep)) {
-    searchCrossOverDesign(
-        s, p, v, model = model,
-        eff.factor = eff.factor, contrast = contrast, n = n)
+    searchCrossOverDesign(s, p, v, model = model,
+        contrast = contrast, n = n, eff.factor = eff.factor)
   } else {
-    searchCrossOverDesign(
-        s, p, v, model = model,
-        eff.factor = eff.factor, contrast = contrast, n = n, v.rep = v.rep)
+    searchCrossOverDesign(s, p, v, model = model,
+        contrast = contrast, n = n, v.rep = v.rep, eff.factor = eff.factor)
   }
 }
 
@@ -34,6 +33,7 @@ shinyServer(function(input, output, session) {
       validate(
         need(nchar(
           as.character(input$seed)) > 4, "Please enter a 5 digit random seed number"),
+        need(input$seed <= 99999, "Random number too long"),
         need(input$study, "Please enter name of study"),
         need(length(treats) > 1, "At least 2 treatments are required")
       )
@@ -50,7 +50,7 @@ shinyServer(function(input, output, session) {
     use_weights = use_weights && sum(weights) == n_subjects*n_days
     v.rep = NULL
     if (use_weights) v.rep = weights
-    des = searchCrossOverDesign1(n_subjects, n_days, n_treat, v.rep)
+    des = searchCrossOverDesign1(n_subjects, n_days, n_treat, v.rep, input$model)
     d = as.data.frame(matrix(treats[t(getDesign(des))],nrow = n_subjects))
     d = setNames(d, paste("Visit", 1:n_days)) #
     cap = table(unlist(d))

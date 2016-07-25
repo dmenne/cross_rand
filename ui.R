@@ -1,7 +1,6 @@
 library(shinyjs)
 library(shinythemes)
 
-
 shinyUI(fluidPage(
   theme = shinytheme("cosmo"),
   useShinyjs(),
@@ -10,14 +9,16 @@ shinyUI(fluidPage(
   sidebarLayout(
     sidebarPanel("",
       textInput("study", "Study Name (> 3 characters)",
-                "", #"My clinical study",
-                placeholder="My clinical study"),
+        #        "My clinical study",
+                placeholder = "My clinical study"),
         textInput("treatments", "Treatment names, separated by space",
-                  "", #LE1:4 LE2:4 LE3:10",
+                  # "a b",
                   placeholder = "LE1 LE2 LE3 LE4"),
         helpText(HTML("Unbalanced designs can be forced by adding the requested numbers after a colon, e.g. LE1:8. If given, the sum of numbers must add up to <b>(#study days)*(#patients)</b>. If this is not the case, the table will be computed as if the weights were missing. Check the summary printed below the table to make sure that the weights have been used.")),
         numericInput("seed", "Enter random 5 digits", NA, width = "180px"),
         helpText("Keep this number in your documents to reproduce the list."),
+        selectInput("model", "Model", names(models), names(models)[9]),
+        helpText("Try 'No carry-over effects' first. Other combinations may fail or give unexpected result"),
         div(style = "display:inline-block;",
           numericInput("n_days", "# study days", 3, 2, 5, 1, "90px")),
         div(style = "display:inline-block;",
