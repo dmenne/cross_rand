@@ -23,7 +23,7 @@ shinyUI(fluidPage(
           numericInput("n_days", "# study days", 3, 2, 5, 1, "90px")),
         div(style = "display:inline-block;",
           numericInput("n_subjects", "# patients", 6, 4, 30, 1, "90px")),
-        helpText("This program is running on a free account with limited computing power. Since searching for an optimal design is CPU intensive, please use small number of patients for your test runs, e.g. 6."),
+        helpText("Please use small number of patients for your test runs, e.g. 6, to avoid timeouts."),
       actionButton("computeButton","Compute", icon = icon("refresh")),
         helpText("Computation may need more than a minute. Be patient..."),
         hr(),
