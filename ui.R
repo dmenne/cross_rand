@@ -24,7 +24,7 @@ shinyUI(fluidPage(
         div(style = "display:inline-block;",
           numericInput("n_subjects", "# patients", 6, 4, 30, 1, "90px")),
         helpText("Please use small number of patients for your test runs, e.g. 6, to avoid timeouts."),
-      actionButton("computeButton","Compute", icon = icon("refresh")),
+      actionButton("computeButton","Compute", icon = icon("rotate")),
         helpText("Computation may need more than a minute. Be patient..."),
         hr(),
         helpText("Menne Biomed Consulting Tübingen (dieter.menne@menne-biomed.de) for University Hospital of Zürich and ETH, Project GI MRT. Uses R and packages shiny and Crossover.")
